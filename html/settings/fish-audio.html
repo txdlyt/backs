@@ -1,0 +1,269 @@
+<div class="st-is-tab-content" id="st-is-tab-fish-audio">
+
+    <!-- ─── 连接设置 ─────────────────────────────────────────── -->
+    <div class="st-is-settings-section">
+        <h3>Fish Audio 连接设置</h3>
+        <p style="opacity:.75; margin-top:-6px;">
+            通过 <a href="https://fish.audio" target="_blank" rel="noopener">Fish Audio</a> 合成语音（兼容接口，与 ST-iPhonie 相同）。
+            API Key 在官网「控制台 → API」获取；音色填 reference_id。API 额度与平台额度分开结算。
+        </p>
+
+        <div class="st-is-field-col">
+            <label for="fish_api_key">API Key</label>
+            <div style="display:flex; gap:8px; align-items:flex-start;">
+                <input type="text" id="fish_api_key" class="st-is-text-input"
+                    placeholder="fish_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+                    style="flex:1; font-family:monospace; -webkit-text-security:disc;">
+                <button class="st-is-icon-btn" id="fish_api_key_toggle" title="显示/隐藏">
+                    <i class="fa-solid fa-eye"></i>
+                </button>
+            </div>
+            <div id="fish_api_key_status" style="opacity:.7; font-size:12px; margin-top:4px;">未配置</div>
+        </div>
+
+        <div class="st-is-field">
+            <label for="fish_base_url">API Base URL（可填中转）</label>
+            <input type="text" id="fish_base_url" class="st-is-text-input"
+                value="https://api.fish.audio" style="font-family:monospace;"
+                placeholder="https://api.fish.audio" />
+        </div>
+
+        <div class="st-is-field">
+            <label for="fish_use_proxy">使用酒馆代理（仅原生模型/中转需要）</label>
+            <div class="st-is-toggle">
+                <input id="fish_use_proxy" type="checkbox" />
+                <span class="st-is-slider"></span>
+            </div>
+        </div>
+
+        <div style="display:flex; align-items:center; gap:10px; margin-top:10px; flex-wrap:wrap;">
+            <button class="st-is-btn" id="fish_health_button">
+                <i class="fa-solid fa-signal"></i> 检测连接
+            </button>
+            <span id="fish_health_status" style="opacity:.75;">未检测</span>
+        </div>
+    </div>
+
+    <!-- ─── 模型与参数 ─────────────────────────────────────────── -->
+    <div class="st-is-settings-section">
+        <h3>模型与参数</h3>
+        <p style="opacity:.65; font-size:12px; margin-top:-6px;">
+            模型与参数对齐 ST-iPhonie / Fish 官方文档。默认 s2.1-pro。
+        </p>
+
+        <div class="st-is-field">
+            <label for="fish_model">模型</label>
+            <select id="fish_model" class="st-is-select">
+                <option value="s2.1-pro">s2.1-pro（推荐）</option>
+                <option value="s2.1-pro-free">s2.1-pro-free</option>
+                <option value="s2-pro">s2-pro</option>
+                <option value="s1">s1</option>
+                <option value="drama-3">drama-3（需代理/中转）</option>
+            </select>
+        </div>
+
+        <div class="st-is-field">
+            <label for="fish_format">音频格式</label>
+            <select id="fish_format" class="st-is-select">
+                <option value="mp3">mp3</option>
+                <option value="wav">wav</option>
+                <option value="opus">opus</option>
+                <option value="pcm">pcm</option>
+            </select>
+        </div>
+
+        <div class="st-is-field">
+            <label for="fish_latency">延迟模式</label>
+            <select id="fish_latency" class="st-is-select">
+                <option value="normal">normal（质量优先）</option>
+                <option value="balanced">balanced（均衡）</option>
+                <option value="low">low（低延迟）</option>
+            </select>
+        </div>
+
+        <div class="st-is-field">
+            <label for="fish_speed">语速（prosody.speed）</label>
+            <input type="number" id="fish_speed" class="st-is-text-input" min="0.5" max="2" step="0.05" value="1">
+        </div>
+
+        <div class="st-is-field">
+            <label for="fish_volume">音量 dB（prosody.volume，0=原音量）</label>
+            <input type="number" id="fish_volume" class="st-is-text-input" step="0.5" value="0">
+        </div>
+
+        <div class="st-is-field">
+            <label for="fish_temperature">表现变化 temperature</label>
+            <input type="number" id="fish_temperature" class="st-is-text-input" min="0" max="1" step="0.05" value="0.7">
+        </div>
+
+        <div class="st-is-field">
+            <label for="fish_top_p">采样多样性 top_p</label>
+            <input type="number" id="fish_top_p" class="st-is-text-input" min="0" max="1" step="0.05" value="0.7">
+        </div>
+
+        <div class="st-is-field">
+            <label for="fish_chunk_length">分段长度 chunk_length</label>
+            <input type="number" id="fish_chunk_length" class="st-is-text-input" min="100" max="300" step="1" value="300">
+        </div>
+
+        <div class="st-is-field">
+            <label for="fish_sample_rate">采样率（随格式自动对齐）</label>
+            <select id="fish_sample_rate" class="st-is-select">
+                <option value="44100">44100</option>
+                <option value="32000">32000</option>
+                <option value="24000">24000</option>
+                <option value="16000">16000</option>
+                <option value="8000">8000</option>
+                <option value="48000">48000</option>
+            </select>
+            <div id="fish_sample_rate_hint" style="opacity:.6;font-size:12px;margin-top:4px;"></div>
+        </div>
+
+        <div class="st-is-field" id="fish_mp3_bitrate_field">
+            <label for="fish_mp3_bitrate">MP3 码率 kbps</label>
+            <select id="fish_mp3_bitrate" class="st-is-select">
+                <option value="128">128</option>
+                <option value="64">64</option>
+                <option value="192">192</option>
+            </select>
+        </div>
+
+        <div class="st-is-field" id="fish_opus_bitrate_field" style="display:none;">
+            <label for="fish_opus_bitrate">Opus 码率</label>
+            <select id="fish_opus_bitrate" class="st-is-select">
+                <option value="-1000">自动</option>
+                <option value="24000">24 kbps</option>
+                <option value="32000">32 kbps</option>
+                <option value="48000">48 kbps</option>
+                <option value="64000">64 kbps</option>
+            </select>
+        </div>
+
+        <div class="st-is-field">
+            <label>
+                <input type="checkbox" id="fish_normalize_loudness" checked>
+                统一响度（S2 系列）
+            </label>
+        </div>
+
+        <div class="st-is-field">
+            <label>
+                <input type="checkbox" id="fish_normalize" checked>
+                规范数字与文字读法
+            </label>
+        </div>
+    </div>
+
+<!-- ─── 音色管理 ─────────────────────────────────────────── -->
+    <div class="st-is-settings-section">
+        <h3>音色管理</h3>
+        <p style="opacity:.6; font-size:12px;">
+            在 <a href="https://fish.audio/zh-CN/" target="_blank" rel="noopener">Fish Audio 音色广场</a>
+            找到想用的音色，复制其 reference_id（URL 中最后一段哈希），填入下方添加。
+        </p>
+
+        <div class="st-is-field-col">
+            <label>当前音色（人物 TTS / 测试合成）</label>
+            <div style="display:flex; gap:8px; align-items:center;">
+                <input type="text" id="fish_current_voice_display" class="st-is-text-input" readonly
+                    style="flex:1; font-family:monospace;" placeholder="未选择">
+                <button class="st-is-icon-btn" id="fish_current_voice_clear" title="清空">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="st-is-field-col">
+            <label>旁白音色（为空时回退到当前音色）</label>
+            <div style="display:flex; gap:8px; align-items:center;">
+                <input type="text" id="fish_narration_voice_display" class="st-is-text-input" readonly
+                    style="flex:1; font-family:monospace;" placeholder="未选择">
+                <button class="st-is-icon-btn" id="fish_narration_voice_clear" title="清空">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- 添加音色 -->
+        <div style="display:grid; grid-template-columns:1fr 2fr auto; gap:8px; margin:12px 0 8px;">
+            <input type="text" id="fish_add_nick" class="st-is-text-input" placeholder="音色昵称（用于角色匹配）">
+            <input type="text" id="fish_add_ref_id" class="st-is-text-input"
+                placeholder="reference_id（音色哈希 ID）" style="font-family:monospace;">
+            <button class="st-is-btn" id="fish_add_voice_btn">
+                <i class="fa-solid fa-plus"></i> 添加
+            </button>
+        </div>
+
+        <div id="fish_voices_list" style="margin-top:4px;"></div>
+    </div>
+
+    <!-- ─── 朗读参数 ─────────────────────────────────────────── -->
+    <div class="st-is-settings-section">
+        <h3>朗读参数</h3>
+
+        <div class="st-is-field">
+            <label for="fish_format">输出格式</label>
+            <select id="fish_format" class="st-is-select">
+                <option value="mp3">mp3（推荐）</option>
+                <option value="wav">wav</option>
+                <option value="opus">opus</option>
+                <option value="flac">flac</option>
+            </select>
+        </div>
+
+        <div class="st-is-field">
+            <label for="fish_latency">延迟模式</label>
+            <select id="fish_latency" class="st-is-select">
+                <option value="normal">normal（标准）</option>
+                <option value="balanced">balanced（均衡）</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- ─── 测试工具 ─────────────────────────────────────────── -->
+    <div class="st-is-settings-section">
+        <h4>测试工具</h4>
+
+        <div class="st-is-field-col">
+            <label for="fish_test_text">测试文本</label>
+            <textarea id="fish_test_text" class="st-is-textarea" rows="3"
+                placeholder="输入要合成的文本..."></textarea>
+        </div>
+
+        <div style="text-align:center; margin:16px 0;">
+            <button class="st-is-btn" id="fish_test_button">
+                <i class="fa-solid fa-microphone-lines"></i> 测试合成（使用当前音色）
+            </button>
+            <span id="fish_test_status" style="opacity:.75; margin-left:8px;"></span>
+        </div>
+
+        <div class="st-is-field-col">
+            <label>测试结果</label>
+            <audio id="fish_test_audio" controls style="width:100%; display:none;"></audio>
+        </div>
+    </div>
+
+</div>
+
+<!-- ─── 局部样式 ─────────────────────────────────────────── -->
+<style>
+.fish-voice-item {
+    padding: 10px;
+    background: rgba(128,128,128,.06);
+    border-radius: 6px;
+    border: 1px solid rgba(128,128,128,.2);
+    margin-bottom: 8px;
+    font-size: 13px;
+}
+.fish-voice-item .fname { font-weight: 600; color: #4f7cff; }
+.fish-voice-item .fmeta { opacity: .6; font-size: 12px; margin-top: 4px; word-break: break-all; font-family: monospace; }
+.fish-voice-item .factions { margin-top: 8px; display: flex; gap: 6px; flex-wrap: wrap; }
+.fish-voice-item .factions button {
+    font-size: 12px; padding: 4px 10px;
+    border-radius: 4px; border: 1px solid rgba(128,128,128,.3);
+    background: rgba(128,128,128,.1); color: inherit; cursor: pointer;
+}
+.fish-voice-item .factions button:hover { border-color: #4f7cff; color: #4f7cff; }
+.fish-voice-item .factions button.danger:hover { border-color: #f88; color: #f88; }
+.fish-voice-item.selected { border-color: #4f7cff; background: rgba(79,124,255,.08); }
+</style>

@@ -1,0 +1,53 @@
+<div id="st-immersive-sound-settings-modal" class="st-is-modal-backdrop" style="display: none;">
+    <div class="st-is-modal-content">
+        <div class="st-is-modal-header">
+            <h2>声临其境 <span id="st-is-version-display"></span><span id="st-is-title-update-notification" style="display: none;"> (发现新版本, 请到“关于”中更新)</span></h2>
+            <span id="st-immersive-sound-settings-modal-close" class="st-is-modal-close">&times;</span>
+        </div>
+
+        <div class="st-is-settings-layout">
+            <!-- Sidebar Navigation -->
+            <div class="st-is-sidebar">
+                <div class="st-is-sidebar-header">
+                    <div class="st-is-sidebar-header-buttons">
+                        <button class="st-is-sidebar-btn" id="toggle_theme_button" title="切换主题"><i class="fa-solid fa-sun"></i></button>
+                        <button class="st-is-sidebar-btn" id="stopButton" title="停止所有音频"><i class="fa-solid fa-stop"></i></button>
+                        <button class="st-is-sidebar-btn" id="update_plugin_button" title="检查更新"><i class="fa-solid fa-cloud-arrow-down"></i></button>
+                        <button class="st-is-sidebar-btn" id="restore_default_settings_button" title="重置设置"><i class="fa-solid fa-arrow-rotate-left"></i></button>
+                        <button class="st-is-sidebar-btn" id="export_settings_button" title="导出设置"><i class="fa-solid fa-file-export"></i></button>
+                        <button class="st-is-sidebar-btn" id="import_settings_button" title="导入设置"><i class="fa-solid fa-file-import"></i></button>
+                    </div>
+                </div>
+                <nav class="st-is-nav">
+                    <a href="#" class="st-is-nav-link active" data-tab="main">主要设置</a>
+                    <a href="#" class="st-is-nav-link" data-tab="sleep-aid">🌙 助眠中心</a>
+                    <a href="#" class="st-is-nav-link" data-tab="volume">音量设置</a>
+                    <a href="#" class="st-is-nav-link" data-tab="regex">正则设置</a>
+                    <a href="#" class="st-is-nav-link" data-tab="llm">llm设置</a>
+                    <a href="#" class="st-is-nav-link" data-tab="tts">豆包tts</a>
+                    <a href="#" class="st-is-nav-link" data-tab="edge-tts">Edge TTS</a>
+                    <a href="#" class="st-is-nav-link" data-tab="minimax">MiniMax</a>
+                    <a href="#" class="st-is-nav-link" data-tab="minimax-music">MiniMax 音乐</a>
+                    <a href="#" class="st-is-nav-link" data-tab="nimo">MiMo TTS</a>
+                    <a href="#" class="st-is-nav-link" data-tab="fish-audio">Fish Audio</a>
+                    <a href="#" class="st-is-nav-link" data-tab="tts-preview">音频预览</a>
+                    <a href="#" class="st-is-nav-link" data-tab="sfx-preview">音效预览</a>
+                    <a href="#" class="st-is-nav-link" data-tab="effects-processor">效果器</a>
+                    <a href="#" class="st-is-nav-link" data-tab="3d-sound">3D 音效</a>
+                    <a href="#" class="st-is-nav-link" data-tab="vibration">震动设置</a>
+                    <a href="#" class="st-is-nav-link" data-tab="cache">缓存管理</a>
+                    <a href="#" class="st-is-nav-link" data-tab="audio-resources">音效资源</a>
+                    <a href="#" class="st-is-nav-link" data-tab="float-ball">悬浮球</a>
+                    <a href="#" class="st-is-nav-link" data-tab="theme">主题设置</a>
+                    <a href="#" class="st-is-nav-link" data-tab="log">日志</a>
+                    <a href="#" class="st-is-nav-link" data-tab="about">关于 <span id="st-is-update-indicator" class="st-is-update-indicator" style="display: none;"></span></a>
+                </nav>
+            </div>
+
+            <!-- Content Area -->
+            <div class="st-is-content">
+                <!-- Tab partials are loaded dynamically from html/settings/<tabId>.html by initUI() -->
+            </div>
+        </div>
+    </div>
+</div>
