@@ -1,19 +1,6 @@
 {
-  "name": "st-chatu8",
-  "version": "1.0.0",
-  "description": "**作者:** 从前跟你一样\r **版本:** 1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "test": "node tests/text-alignment.test.mjs && node tests/run-alignment-tests.mjs",
-    "test:unit": "node tests/text-alignment.test.mjs",
-    "test:fixtures": "node tests/run-alignment-tests.mjs",
-    "obfuscate": "node obfuscate.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "esbuild": "^0.28.1",
-    "javascript-obfuscator": "^4.1.1"
-  }
+  "name": "st-iphonie",
+  "version": "0.8.50",
+  "private": true,
+  "type": "module"
 }
