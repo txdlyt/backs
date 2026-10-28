@@ -1,17 +1,12 @@
 {
-  "display_name": "ST-iPhonie",
-  "version": "0.8.50",
-  "author": "ST-iPhonie contributors",
-  "js": "index.js",
-  "css": "style.css",
-  "loading_order": 50,
-  "minimum_client_version": "1.13.2",
+  "display_name": "柏宝绘",
+  "loading_order": 100,
+  "requires": [],
+  "optional": [],
+  "js": "dist/index.js?ver=0.3.2",
+  "author": "柏柏",
+  "version": "0.3.2",
+  "homePage": "https://github.com/baibai-git/ST-BaiBai-Image",
   "auto_update": false,
-  "hooks": {
-    "enable": "enable",
-    "disable": "disable",
-    "delete": "dispose"
-  },
-  "homePage": "https://github.com/hey8v0/ST-iPhonie",
-  "generate_interceptor": "stIphonieInterceptor"
+  "minimum_client_version": "1.12.13"
 }
