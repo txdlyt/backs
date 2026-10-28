@@ -1,26 +1,19 @@
 {
-  "name": "st-baibai-image",
-  "version": "0.3.2",
-  "private": true,
-  "type": "module",
+  "name": "st-chatu8",
+  "version": "1.0.0",
+  "description": "**作者:** 从前跟你一样\r **版本:** 1.0.0",
+  "main": "index.js",
   "scripts": {
-    "sync-version": "node scripts/sync-version.mjs",
-    "prebuild": "node scripts/sync-version.mjs",
-    "build": "vite build",
-    "prewatch": "node scripts/sync-version.mjs",
-    "watch": "vite build --watch --mode development",
-    "typecheck": "vue-tsc --noEmit",
-    "test": "vitest run"
+    "test": "node tests/text-alignment.test.mjs && node tests/run-alignment-tests.mjs",
+    "test:unit": "node tests/text-alignment.test.mjs",
+    "test:fixtures": "node tests/run-alignment-tests.mjs",
+    "obfuscate": "node obfuscate.js"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "devDependencies": {
-    "@vitejs/plugin-vue": "^6.0.7",
-    "typescript": "^5.7.0",
-    "vite": "^7.3.3",
-    "vitest": "^4.1.10",
-    "vue-tsc": "^3.3.3"
-  },
-  "dependencies": {
-    "fflate": "^0.8.3",
-    "vue": "^3.5.35"
+    "esbuild": "^0.28.1",
+    "javascript-obfuscator": "^4.1.1"
   }
 }
